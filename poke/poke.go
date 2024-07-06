@@ -24,11 +24,7 @@ func StartRepl() {
 
 		err := c.callback()
 		if err != nil {
-			switch err {
-			case ExitError:
-				fmt.Println("goodbye!")
-				return
-			}
+			fmt.Println(err)
 		}
 	}
 }

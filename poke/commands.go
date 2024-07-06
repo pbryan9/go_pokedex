@@ -6,16 +6,6 @@ import (
 	"os"
 )
 
-const (
-	ExitError = Error("exit")
-)
-
-type Error string
-
-func (e Error) Error() string {
-	return string(e)
-}
-
 type command struct {
 	prompt      string
 	description string
@@ -49,7 +39,9 @@ func getCommands() commands {
 }
 
 func cmdExit() error {
-	return ExitError
+	fmt.Println("goodbye!")
+	os.Exit(0)
+	return nil
 }
 
 func (cmds commands) AddCommand(prompt, desc string, cb callback) {
