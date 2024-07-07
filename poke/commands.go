@@ -29,6 +29,20 @@ func getCommands() commands {
 		cmdHelp,
 	)
 
+	cmdMap, cmdMapb := cmdMapClosure()
+
+	cmds.AddCommand(
+		"map",
+		"display the next 20 locations",
+		cmdMap,
+	)
+
+	cmds.AddCommand(
+		"mapb",
+		"display the previous 20 locations",
+		cmdMapb,
+	)
+
 	cmds.AddCommand(
 		"find",
 		"search for a pokemon by name",
@@ -54,7 +68,6 @@ func (cmds commands) AddCommand(prompt, desc string, cb callback) {
 
 func cmdHelp() error {
 	commands := getCommands()
-	fmt.Println("help")
 	for _, c := range commands {
 		fmt.Println(c.prompt)
 		fmt.Println(c.description)

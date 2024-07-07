@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"strings"
 )
 
 func StartRepl() {
@@ -14,9 +15,14 @@ func StartRepl() {
 	for {
 		fmt.Print(prompt)
 		b.Scan()
-		input := b.Text()
+		input := ParseInput(b.Text())
+		if len(input) == 0 {
+			continue
+		}
 
-		c, ok := commands[input]
+		cmd := input[0]
+
+		c, ok := commands[cmd]
 		if !ok {
 			fmt.Printf("invalid command: %s\nplease try again\n", input)
 			continue
@@ -27,4 +33,10 @@ func StartRepl() {
 			fmt.Println(err)
 		}
 	}
+}
+
+func ParseInput(s string) []string {
+	s = strings.ToLower(s)
+	words := strings.Fields(s)
+	return words
 }
