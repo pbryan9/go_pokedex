@@ -28,7 +28,7 @@ func StartRepl() {
 			continue
 		}
 
-		err := c.callback()
+		err := c.callback(&c.config)
 		if err != nil {
 			fmt.Println(err)
 		}

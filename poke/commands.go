@@ -9,12 +9,18 @@ import (
 type command struct {
 	prompt      string
 	description string
-	callback    func() error
+	callback    callback
+	config      Config
+}
+
+type Config struct {
+	Next     string
+	Previous string
 }
 
 type commands map[string]command
 
-type callback func() error
+type callback func(*Config) error
 
 func getCommands() commands {
 	cmds := make(commands, 0)
@@ -52,7 +58,7 @@ func getCommands() commands {
 	return cmds
 }
 
-func cmdExit() error {
+func cmdExit(_ *Config) error {
 	fmt.Println("goodbye!")
 	os.Exit(0)
 	return nil
@@ -66,7 +72,7 @@ func (cmds commands) AddCommand(prompt, desc string, cb callback) {
 	}
 }
 
-func cmdHelp() error {
+func cmdHelp(_ *Config) error {
 	commands := getCommands()
 	for _, c := range commands {
 		fmt.Println(c.prompt)
@@ -76,7 +82,7 @@ func cmdHelp() error {
 	return nil
 }
 
-func findByName() error {
+func findByName(_ *Config) error {
 	fmt.Println("find pokemon by name")
 	prompt := "enter name to search (back to go back) > "
 	s := bufio.NewScanner(os.Stdin)

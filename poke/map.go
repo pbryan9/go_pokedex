@@ -10,7 +10,7 @@ import (
 
 func cmdMapClosure() (cmdMap, cmdMapb callback) {
 	page := 0
-	cmdMap = func() error {
+	cmdMap = func(config *Config) error {
 		page++
 		areas := getMapPage(page)
 		for _, area := range areas.Results {
@@ -19,7 +19,7 @@ func cmdMapClosure() (cmdMap, cmdMapb callback) {
 		return nil
 	}
 
-	cmdMapb = func() error {
+	cmdMapb = func(config *Config) error {
 		if page <= 1 {
 			return errors.New("cannot decrement page: already at first page")
 		}
