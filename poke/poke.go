@@ -7,10 +7,17 @@ import (
 	"strings"
 )
 
+const BaseAPI = "https://pokeapi.co/api/v2"
+
 func StartRepl() {
 	prompt := "pokedex > "
 	commands := getCommands()
 	b := bufio.NewScanner(os.Stdin)
+
+	config := Config{
+		Next:     "",
+		Previous: "",
+	}
 
 	for {
 		fmt.Print(prompt)
@@ -28,7 +35,7 @@ func StartRepl() {
 			continue
 		}
 
-		err := c.callback(&c.config)
+		err := c.callback(&config)
 		if err != nil {
 			fmt.Println(err)
 		}
