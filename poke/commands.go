@@ -23,24 +23,23 @@ type callback func(*Config) error
 func getCommands() commands {
 	cmds := make(commands, 0)
 	cmds.AddCommand(
-		"exit",
-		"Exit the program",
-		cmdExit,
-	)
-	cmds.AddCommand(
 		"help",
 		"List of available commands and their descriptions",
 		cmdHelp,
 	)
 
-	cmdMap, cmdMapb := cmdMapClosure()
+	cmds.AddCommand(
+		"exit",
+		"Exit the program",
+		cmdExit,
+	)
 
+	cmdMap, cmdMapb := cmdMapClosure()
 	cmds.AddCommand(
 		"map",
 		"display the next 20 locations",
 		cmdMap,
 	)
-
 	cmds.AddCommand(
 		"mapb",
 		"display the previous 20 locations",
