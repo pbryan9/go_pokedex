@@ -34,7 +34,6 @@ func getCommands() commands {
 		cmdExit,
 	)
 
-	cmdMap, cmdMapb := cmdMapClosure()
 	cmds.AddCommand(
 		"map",
 		"display the next 20 locations",
