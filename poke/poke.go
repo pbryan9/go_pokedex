@@ -5,9 +5,15 @@ import (
 	"fmt"
 	"os"
 	"strings"
+	"time"
+
+	"github.com/pbryan9/go_pokedex/internal/pokecache"
 )
 
-const BaseAPI = "https://pokeapi.co/api/v2"
+const (
+	BaseAPI       = "https://pokeapi.co/api/v2"
+	CacheInterval = 5 * time.Minute
+)
 
 func StartRepl() {
 	prompt := "pokedex > "
@@ -17,6 +23,7 @@ func StartRepl() {
 	config := Config{
 		Next:     "",
 		Previous: "",
+		Cache:    *pokecache.NewCache(CacheInterval),
 	}
 
 	for {
