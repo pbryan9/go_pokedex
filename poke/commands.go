@@ -20,7 +20,7 @@ type Config struct {
 
 type commands map[string]command
 
-type callback func(*Config) error
+type callback func(*Config, ...string) error
 
 func getCommands() commands {
 	cmds := make(commands, 0)
@@ -47,10 +47,15 @@ func getCommands() commands {
 		cmdMapb,
 	)
 
+	cmds.AddCommand(
+		"explore",
+		"explore a named location",
+		cmdExplore,
+	)
 	return cmds
 }
 
-func cmdExit(_ *Config) error {
+func cmdExit(_ *Config, _ ...string) error {
 	fmt.Println("goodbye!")
 	os.Exit(0)
 	return nil
@@ -64,7 +69,7 @@ func (cmds commands) AddCommand(prompt, desc string, cb callback) {
 	}
 }
 
-func cmdHelp(_ *Config) error {
+func cmdHelp(_ *Config, _ ...string) error {
 	commands := getCommands()
 	for _, c := range commands {
 		fmt.Println(c.prompt)

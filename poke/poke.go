@@ -35,6 +35,7 @@ func StartRepl() {
 		}
 
 		cmd := input[0]
+		args := input[1:]
 
 		c, ok := commands[cmd]
 		if !ok {
@@ -42,7 +43,7 @@ func StartRepl() {
 			continue
 		}
 
-		err := c.callback(&config)
+		err := c.callback(&config, args...)
 		if err != nil {
 			fmt.Println(err)
 		}
