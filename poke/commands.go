@@ -52,6 +52,12 @@ func getCommands() commands {
 		"explore a named location",
 		cmdExplore,
 	)
+
+	cmds.AddCommand(
+		"catch",
+		"attempt to catch a pokemon",
+		cmdCatch,
+	)
 	return cmds
 }
 

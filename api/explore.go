@@ -23,7 +23,7 @@ func GetExplorePage(areaName string, cache *pokecache.PokeCache) AreaPage {
 	}
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
-		fmt.Printf("error reading response at endpoing %s", url)
+		fmt.Printf("error reading response at endpoint %s", url)
 		return AreaPage{}
 	}
 	return convertExploreJson(body)
