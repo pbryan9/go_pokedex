@@ -32,25 +32,16 @@ func Catch(name string, cache *pokecache.PokeCache) (bool, error) {
 func fetchPokemonPage(name string, cache *pokecache.PokeCache) PokemonPage {
 	url := fmt.Sprintf("%s/pokemon/%s/", BaseURL, name)
 	page := make([]byte, 0)
-	page, ok := cache.Get(url)
-	if !ok {
-		// page, err := getPokemonPageFromAPI(url)
-		// if err != nil {
-		// 	fmt.Printf("error fetching page %s: %s\n", url, err)
-		// 	return pokePage
-		// }
-		res, err := http.Get(url)
+	if _, ok := cache.Get(url); !ok {
+		page, err := getPokemonPageFromAPI(url)
 		if err != nil {
-			fmt.Printf("error fetching url: %s\n", url)
+			fmt.Printf("error fetching page %s: %s\n", url, err)
 			return PokemonPage{}
-		}
-		page, err = io.ReadAll(res.Body)
-		if err != nil {
-			fmt.Printf("error reading body\n")
 		}
 		cachePokemonPage(url, page, cache)
 	}
 
+	page, _ = cache.Get(url)
 	pokePage := PokemonPage{}
 	err := json.Unmarshal(page, &pokePage)
 	if err != nil {
@@ -79,10 +70,6 @@ func getPokemonPageFromAPI(url string) ([]byte, error) {
 		return []byte{}, errors.New("didn't work")
 	}
 
-	pokePageAsString := string(body)
-	fmt.Println(pokePageAsString)
-	fmt.Print(json.Valid(body))
-	fmt.Println("read body successfully")
 	return body, nil
 }
 
