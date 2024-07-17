@@ -24,6 +24,7 @@ func StartRepl() {
 		Next:     "",
 		Previous: "",
 		Cache:    *pokecache.NewCache(CacheInterval),
+		Pokedex:  *NewPokedex(),
 	}
 
 	for {

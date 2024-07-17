@@ -12,6 +12,13 @@ func cmdCatch(c *Config, args ...string) error {
 	}
 
 	name := args[0]
-	api.Catch(name, &c.Cache)
+	pokemon, err := api.Catch(name, &c.Cache)
+	if err != nil {
+		return err
+	}
+	// if catch failed, pokemon name will be empty
+	if pokemon.Name != "" {
+		c.Pokedex.Add(pokemon)
+	}
 	return nil
 }

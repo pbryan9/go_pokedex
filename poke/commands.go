@@ -2,7 +2,6 @@ package poke
 
 import (
 	"fmt"
-	"github.com/pbryan9/go_pokedex/internal/pokecache"
 	"os"
 )
 
@@ -10,12 +9,6 @@ type command struct {
 	prompt      string
 	description string
 	callback    callback
-}
-
-type Config struct {
-	Next     string
-	Previous string
-	Cache    pokecache.PokeCache
 }
 
 type commands map[string]command
@@ -57,6 +50,12 @@ func getCommands() commands {
 		"catch",
 		"attempt to catch a pokemon",
 		cmdCatch,
+	)
+
+	cmds.AddCommand(
+		"list",
+		"list pokemon in pokedex",
+		cmdList,
 	)
 	return cmds
 }

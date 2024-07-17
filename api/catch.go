@@ -11,10 +11,10 @@ import (
 	"github.com/pbryan9/go_pokedex/internal/pokecache"
 )
 
-func Catch(name string, cache *pokecache.PokeCache) (bool, error) {
+func Catch(name string, cache *pokecache.PokeCache) (PokemonPage, error) {
 	pokePage := fetchPokemonPage(name, cache)
 	if pokePage.Name == "" {
-		return false, fmt.Errorf("could not get data for pokemon: %s", name)
+		return PokemonPage{}, fmt.Errorf("could not get data for pokemon: %s", name)
 	}
 	fmt.Printf("Throwing pokeball at %s...\n", pokePage.Name)
 	target := pokePage.BaseExperience
@@ -22,11 +22,11 @@ func Catch(name string, cache *pokecache.PokeCache) (bool, error) {
 	roll := rand.Intn(500)
 	if roll >= target {
 		fmt.Printf("You caught a %s!\n", pokePage.Name)
-		return true, nil
+		return pokePage, nil
 	} else {
 		fmt.Printf("Whoops, your pokeball failed to capture %s...\n", pokePage.Name)
 	}
-	return false, nil
+	return PokemonPage{}, nil
 }
 
 func fetchPokemonPage(name string, cache *pokecache.PokeCache) PokemonPage {
