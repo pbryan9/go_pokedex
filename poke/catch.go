@@ -12,6 +12,13 @@ func cmdCatch(c *Config, args ...string) error {
 	}
 
 	name := args[0]
+
+	inPokedex := c.Pokedex.Check(name)
+	if inPokedex {
+		fmt.Printf("%s is already in pokedex.\n", name)
+		return nil
+	}
+
 	pokemon, err := api.Catch(name, &c.Cache)
 	if err != nil {
 		return err

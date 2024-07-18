@@ -25,6 +25,11 @@ func (p Pokedex) List() {
 	}
 }
 
+func (p Pokedex) Check(name string) bool {
+	_, ok := p.Pokedex[name]
+	return ok
+}
+
 func NewPokedex() *Pokedex {
 	dex := Pokedex{
 		Pokedex: make(map[string]api.PokemonPage),
