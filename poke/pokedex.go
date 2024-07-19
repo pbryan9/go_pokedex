@@ -17,9 +17,15 @@ func (p Pokedex) Add(pokemon api.PokemonPage) {
 	}
 }
 
-func (p Pokedex) List() {
+func (p Pokedex) Pokedex() {
+	if len(p) == 0 {
+		fmt.Println("your pokedex is empty")
+		return
+	}
+
+	fmt.Println("your pokedex:")
 	for poke := range p {
-		fmt.Println(poke)
+		fmt.Printf(" - %s\n", poke)
 	}
 }
 

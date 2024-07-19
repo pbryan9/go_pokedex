@@ -1,6 +1,6 @@
 package poke
 
-func cmdList(c *Config, args ...string) error {
-	c.Pokedex.List()
+func cmdPokedex(c *Config, args ...string) error {
+	c.Pokedex.Pokedex()
 	return nil
 }

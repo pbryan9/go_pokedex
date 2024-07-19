@@ -59,9 +59,9 @@ func getCommands() commands {
 	)
 
 	cmds.AddCommand(
-		"list",
+		"pokedex",
 		"list pokemon in pokedex",
-		cmdList,
+		cmdPokedex,
 	)
 	return cmds
 }
