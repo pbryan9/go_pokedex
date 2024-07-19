@@ -53,6 +53,12 @@ func getCommands() commands {
 	)
 
 	cmds.AddCommand(
+		"inspect",
+		"view pokemon details",
+		cmdInspect,
+	)
+
+	cmds.AddCommand(
 		"list",
 		"list pokemon in pokedex",
 		cmdList,
